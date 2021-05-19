@@ -97,6 +97,7 @@ import '../../css/components/completed-exercise-progress'
 import '../../css/components/widgets/exercise'
 import '../../css/components/mentor-discussion-post-editor'
 
+import '../../css/modals/activate-practice-mode'
 import '../../css/modals/crop-avatar'
 import '../../css/modals/editor-hints'
 import '../../css/modals/profile-first-time'
@@ -221,6 +222,7 @@ import { Links as PublishedSolutionLinks } from '../components/student/Published
 import { Track as MentoringTestimonialsListTrack } from '../components/mentoring/TestimonialsList'
 import * as Tooltips from '../components/tooltips'
 import * as Dropdowns from '../components/dropdowns'
+import { Links as TrackMenuLinks } from '../components/dropdowns/TrackMenu'
 import * as Profile from '../components/profile'
 import * as CommunitySolutions from '../components/community-solutions'
 import { TrackData as ProfileCommunitySolutionsListTrackData } from '../components/profile/CommunitySolutionsList'
@@ -529,7 +531,10 @@ initReact({
     />
   ),
   'dropdowns-track-menu': (data: any) => (
-    <Dropdowns.TrackMenu track={data.track} links={data.links} />
+    <Dropdowns.TrackMenu
+      track={data.track}
+      links={camelizeKeysAs<TrackMenuLinks>(data.links)}
+    />
   ),
   'common-copy-to-clipboard-button': (data: any) => (
     <Common.CopyToClipboardButton textToCopy={data.text_to_copy} />

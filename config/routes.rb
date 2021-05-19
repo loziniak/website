@@ -44,7 +44,6 @@ Rails.application.routes.draw do
     # TODO: Stub controller
     resources :user_tracks, only: [] do
       member do
-        post :activate_practice_mode
         post :reset
         post :leave
       end
@@ -61,6 +60,9 @@ Rails.application.routes.draw do
       end
 
       resources :tracks, only: %i[index show] do
+        patch 'activate_practice_mode' => "user_tracks#activate_practice_mode"
+        patch 'deactivate_practice_mode' => "user_tracks#deactivate_practice_mode"
+
         resources :exercises, only: %i[index], controller: "exercises" do
           resources :community_solutions, only: [:index], controller: "community_solutions" do
             resource :star, only: %i[create destroy], controller: "community_solution_stars"
