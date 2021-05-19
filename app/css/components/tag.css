@@ -2,14 +2,22 @@
 
 .c-tag {
     @apply rounded-100;
-    @apply text-12 leading-190;
+    @apply text-14 leading-200;
     @apply font-semibold;
     @apply px-12;
     white-space: nowrap;
     @apply border-1;
 
+    & .--xs {
+        @apply text-12 leading-190;
+    }
+
     &.--in-progress {
         @apply border-darkBlue;
         @apply text-lightBlue bg-veryLightBlue;
+    }
+    &.--practice-mode {
+        @apply border-backgroundColorH;
+        @apply text-textColor9 bg-textColor6;
     }
 }
