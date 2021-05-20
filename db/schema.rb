@@ -472,6 +472,18 @@ ActiveRecord::Schema.define(version: 2021_05_20_092005) do
     t.index ["uuid"], name: "index_track_concepts_on_uuid", unique: true
   end
 
+  create_table "track_maintainerships", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.bigint "track_id", null: false
+    t.bigint "user_id", null: false
+    t.boolean "visible", default: true, null: false
+    t.integer "type", limit: 1, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["track_id", "user_id"], name: "uniq", unique: true
+    t.index ["track_id"], name: "index_track_maintainerships_on_track_id"
+    t.index ["user_id"], name: "index_track_maintainerships_on_user_id"
+  end
+
   create_table "tracks", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "slug", null: false
     t.string "title", null: false
@@ -698,6 +710,8 @@ ActiveRecord::Schema.define(version: 2021_05_20_092005) do
   add_foreign_key "submission_test_runs", "submissions"
   add_foreign_key "submissions", "solutions"
   add_foreign_key "track_concepts", "tracks"
+  add_foreign_key "track_maintainerships", "tracks"
+  add_foreign_key "track_maintainerships", "users"
   add_foreign_key "user_acquired_badges", "badges"
   add_foreign_key "user_acquired_badges", "users"
   add_foreign_key "user_activities", "exercises"
