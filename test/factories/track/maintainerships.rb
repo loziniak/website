@@ -1,11 +1,11 @@
 FactoryBot.define do
   factory :track_maintainership, class: 'Track::Maintainership' do
-    track do
+    maintainer { create :user }
+    component do
       Track.find_by(slug: :ruby) || build(:track, slug: 'ruby')
     end
-
-    maintainer { create :user }
     visible { true }
-    maintainer_type { :regular }
+    maintainer_type { :track }
+    maintainer_level { :apprentice }
   end
 end

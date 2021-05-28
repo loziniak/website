@@ -3,7 +3,7 @@ require "test_helper"
 class Track::MaintainershipTest < ActiveSupport::TestCase
   test "track" do
     track = create :track
-    maintainership = create :track_maintainership, track: track
+    maintainership = create :track_maintainership, component: track
 
     assert_equal track, maintainership.track
   end
@@ -16,40 +16,19 @@ class Track::MaintainershipTest < ActiveSupport::TestCase
   end
 
   test "maintainer_type" do
-    maintainership = create :track_maintainership
+    maintainership = create :track_maintainership, maintainer_type: :track
 
-    assert_equal :regular, maintainership.maintainer_type
+    assert_equal :track, maintainership.maintainer_type
+    assert maintainership.track_maintainer?
+    refute maintainership.review_maintainer?
   end
 
-  test "regular_maintainer?" do
-    maintainership = create :track_maintainership, maintainer_type: :regular
+  test "maintainer_level" do
+    maintainership = create :track_maintainership, maintainer_level: :apprentice
 
-    assert maintainership.regular_maintainer?
-    refute maintainership.polyglot_maintainer?
-  end
-
-  test "regular_maintainer!" do
-    maintainership = create :track_maintainership, maintainer_type: :polyglot
-
-    maintainership.regular_maintainer!
-
-    assert maintainership.regular_maintainer?
-    refute maintainership.polyglot_maintainer?
-  end
-
-  test "polyglot_maintainer?" do
-    maintainership = create :track_maintainership, maintainer_type: :polyglot
-
-    assert maintainership.polyglot_maintainer?
+    assert_equal :apprentice, maintainership.maintainer_level
+    assert maintainership.apprentice_maintainer?
     refute maintainership.regular_maintainer?
-  end
-
-  test "polyglot_maintainer!" do
-    maintainership = create :track_maintainership, maintainer_type: :regular
-
-    maintainership.polyglot_maintainer!
-
-    assert maintainership.polyglot_maintainer?
-    refute maintainership.regular_maintainer?
+    refute maintainership.senior_maintainer?
   end
 end
