@@ -10,16 +10,8 @@ class Track::Maintainership < ApplicationRecord
   enum maintainer_level: { apprentice: 0, regular: 1, senior: 2 }, _suffix: :maintainer
   enum component_type: { Track: 0 }, _prefix: true
 
-  def maintainer_type
-    super.to_sym
-  end
-
-  def maintainer_level
-    super.to_sym
-  end
-
-  def component_type
-    super.to_sym
+  %i[maintainer_type maintainer_level component_type].each do |meth|
+    define_method(meth) { super().to_sym }
   end
 
   def track
