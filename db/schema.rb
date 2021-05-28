@@ -473,14 +473,15 @@ ActiveRecord::Schema.define(version: 2021_05_20_092005) do
   end
 
   create_table "track_maintainerships", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.bigint "track_id", null: false
     t.bigint "user_id", null: false
     t.boolean "visible", default: true, null: false
     t.integer "maintainer_type", limit: 1, null: false
+    t.integer "maintainer_level", limit: 1, null: false
+    t.integer "component_type", limit: 1, null: false
+    t.bigint "component_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["track_id", "user_id"], name: "uniq", unique: true
-    t.index ["track_id"], name: "index_track_maintainerships_on_track_id"
+    t.index ["user_id", "component_type"], name: "uniq", unique: true
     t.index ["user_id"], name: "index_track_maintainerships_on_user_id"
   end
 
@@ -621,7 +622,6 @@ ActiveRecord::Schema.define(version: 2021_05_20_092005) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "last_touched_at", null: false
-    t.boolean "practice_mode", default: false, null: false
     t.index ["track_id"], name: "index_user_tracks_on_track_id"
     t.index ["user_id", "track_id"], name: "index_user_tracks_on_user_id_and_track_id", unique: true
     t.index ["user_id"], name: "index_user_tracks_on_user_id"
@@ -710,7 +710,6 @@ ActiveRecord::Schema.define(version: 2021_05_20_092005) do
   add_foreign_key "submission_test_runs", "submissions"
   add_foreign_key "submissions", "solutions"
   add_foreign_key "track_concepts", "tracks"
-  add_foreign_key "track_maintainerships", "tracks"
   add_foreign_key "track_maintainerships", "users"
   add_foreign_key "user_acquired_badges", "badges"
   add_foreign_key "user_acquired_badges", "users"
