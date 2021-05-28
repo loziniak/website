@@ -20,7 +20,7 @@ class Track::MaintainershipTest < ActiveSupport::TestCase
 
     assert_equal :track, maintainership.maintainer_type
     assert maintainership.track_maintainer?
-    refute maintainership.review_maintainer?
+    refute maintainership.reviewer_maintainer?
   end
 
   test "maintainer_level" do

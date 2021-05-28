@@ -6,7 +6,7 @@ class Track::Maintainership < ApplicationRecord
 
   belongs_to :component, polymorphic: true
 
-  enum maintainer_type: { track: 0, review: 1 }, _suffix: :maintainer
+  enum maintainer_type: { track: 0, reviewer: 1 }, _suffix: :maintainer
   enum maintainer_level: { apprentice: 0, regular: 1, senior: 2 }, _suffix: :maintainer
   enum component_type: { Track: 0 }, _prefix: true
 
